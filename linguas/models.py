@@ -10,7 +10,7 @@ class Autor(models.Model):
     data_nasc = models.DateTimeField('Data de Nascimento')
 
 class RedeTrabalho(models.Model):
-    nome = models.CharField(max_length=200)
+    nome = models.CharField(max_length=200, primary_key=True)
 
 class Programa_do_Autor(models.Model):
     autor = models.ForeignKey(Autor)
@@ -26,11 +26,11 @@ class Local_do_Idioma(models.Model):
     regiao = models.CharField(max_length=200)
 
 class Keyword(models.Model):
-    texto = models.CharField(max_length=50, unique=True)
+    texto = models.CharField(max_length=50, primary_key=True)
     idioma = models.ForeignKey(Idioma)
 
 class Natureza(models.Model):
-    tipo = models.CharField(max_length=200)
+    tipo = models.CharField(max_length=200, primary_key=True)
 
 class Usuario(models.Model):
     login = models.CharField(max_length=30)
