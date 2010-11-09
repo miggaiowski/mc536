@@ -40,5 +40,53 @@ class Usuario(models.Model):
     tipo = models.CharField(max_length=30)
     pais_sede = models.CharField(max_length=200)
 
+class RedeUsuario(models.Model):
+    login = models.ForeignKey(Usuario)
+    nome = models.ForeignKey(RedeTrabalho)
 
-    
+class Comentario(models.Model):
+    usuario = models.ForeignKey(Usuario)
+    documento = models.ForeignKey(Documento)
+    idioma = models.ForeignKey(Idioma)
+    data = models.DateTimeField()
+    texto = models.CharField(max_length=1000)
+
+class Documento(models.Model):
+    arquivo = models.FileField()
+    formato = models.CharField(max_length=5)
+    titulo = models.CharField(max_length=200)
+    data_criacao = models.DateTimeField()
+    data_submissao = models.DateTimeField()
+    num_vizualizacoes = models.IntegerField()
+    autor = models.ForeignKey(Autor)
+    idioma = models.ForeignKey(Idioma)
+    submetido_por = models.ForeignKey(Usuario)
+    maquina_submissao = models.IPAddressField()
+    programa = models.ForeignKey(Programa)
+    natureza = models.ForeignKey(Natureza)
+
+class Descricao(models.Model):
+    idioma = models.ForeignKey(Idioma)
+    texto = models.CharField(max_length=1000)
+
+class DocumentoKeyword(models.Model):
+    documento = models.ForeignKey(Documento)
+    texto = models.ForeignKey(Keyword)
+
+class Favorito(models.Model):
+    documento = models.ForeignKey(Documento)
+    login = models.ForeignKey(Usuario)
+
+class Responde(models.Model):
+    sobre = models.ForeignKey(Documento)
+    resposta = models.ForeignKey(Documento)
+
+class Liga(models.Model):
+    login = models.ForeignKey(Usuario)
+    did_a = models.ForeignKey(Documento)
+    did_liga = models.ForeignKey(Documento)
+
+class Debate(models.Model):
+    comentario_1 = models.ForeignKey(Comentario)
+    comentario_2 = models.ForeignKey(Comentario)
+
