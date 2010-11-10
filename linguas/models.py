@@ -33,7 +33,7 @@ class Natureza(models.Model):
     tipo = models.CharField(max_length=200, primary_key=True)
 
 class Usuario(models.Model):
-    login = models.CharField(max_length=30)
+    login = models.CharField(max_length=30, primary_key=True)
     nome = models.CharField(max_length=200)
     email = models.EmailField()
     senha = models.CharField(max_length=20)
