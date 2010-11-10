@@ -5,7 +5,7 @@ class Programa(models.Model):
     organizacao = models.ForeignKey('Usuario')
 
     def __unicode__(self):
-        return nome
+        return self.nome
 
 class Autor(models.Model):
     nome = models.CharField(max_length=200)
@@ -13,13 +13,13 @@ class Autor(models.Model):
     data_nasc = models.DateTimeField('Data de Nascimento')
 
     def __unicode__(self):
-        return nome
+        return self.nome
 
 class RedeTrabalho(models.Model):
     nome = models.CharField(max_length=200, primary_key=True)
 
     def __unicode__(self):
-        return nome
+        return self.nome
 
 class Programa_do_Autor(models.Model):
     autor = models.ForeignKey(Autor)
@@ -30,7 +30,7 @@ class Idioma(models.Model):
     pag_wiki = models.URLField(max_length=200)
 
     def __unicode__(self):
-        return nome
+        return self.nome
 
 class Local_do_Idioma(models.Model):
     idioma = models.ForeignKey(Idioma)
@@ -42,13 +42,13 @@ class Keyword(models.Model):
     idioma = models.ForeignKey(Idioma)
 
     def __unicode__(self):
-        return texto
+        return self.texto
 
 class Natureza(models.Model):
     tipo = models.CharField(max_length=200, primary_key=True)
 
     def __unicode__(self):
-        return tipo
+        return self.tipo
 
 
 class Usuario(models.Model):
@@ -60,7 +60,7 @@ class Usuario(models.Model):
     pais_sede = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return login
+        return self.login
 
 class RedeUsuario(models.Model):
     login = models.ForeignKey(Usuario)
@@ -91,7 +91,7 @@ class Documento(models.Model):
     ligado = models.ManyToManyField('Documento', through='Liga', related_name='ligacao')
 
     def __unicode__(self):
-        return titulo
+        return self.titulo
 
 class Descricao(models.Model):
     idioma = models.ForeignKey(Idioma)
