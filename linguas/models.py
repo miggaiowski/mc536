@@ -2,7 +2,7 @@ from django.db import models
 
 class Programa(models.Model):
     nome = models.CharField(max_length=200)
-    organizacao = models.ForeignKey(Usuario)
+    organizacao = models.ForeignKey('Usuario')
 
 class Autor(models.Model):
     nome = models.CharField(max_length=200)
@@ -42,11 +42,11 @@ class Usuario(models.Model):
 
 class RedeUsuario(models.Model):
     login = models.ForeignKey(Usuario)
-    nome = models.ForeignKey(RedeTrabalho)
+    nome = models.ForeignKey('RedeTrabalho')
 
 class Comentario(models.Model):
     usuario = models.ForeignKey(Usuario)
-    documento = models.ForeignKey(Documento)
+    documento = models.ForeignKey('Documento')
     idioma = models.ForeignKey(Idioma)
     data = models.DateTimeField()
     texto = models.CharField(max_length=1000)
