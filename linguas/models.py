@@ -4,13 +4,22 @@ class Programa(models.Model):
     nome = models.CharField(max_length=200)
     organizacao = models.ForeignKey('Usuario')
 
+    def __unicode__(self):
+        return nome
+
 class Autor(models.Model):
     nome = models.CharField(max_length=200)
     nacionalidade = models.CharField(max_length=50)
     data_nasc = models.DateTimeField('Data de Nascimento')
 
+    def __unicode__(self):
+        return nome
+
 class RedeTrabalho(models.Model):
     nome = models.CharField(max_length=200, primary_key=True)
+
+    def __unicode__(self):
+        return nome
 
 class Programa_do_Autor(models.Model):
     autor = models.ForeignKey(Autor)
@@ -19,6 +28,9 @@ class Programa_do_Autor(models.Model):
 class Idioma(models.Model):
     nome = models.CharField(max_length=200)
     pag_wiki = models.URLField(max_length=200)
+
+    def __unicode__(self):
+        return nome
 
 class Local_do_Idioma(models.Model):
     idioma = models.ForeignKey(Idioma)
@@ -29,8 +41,15 @@ class Keyword(models.Model):
     texto = models.CharField(max_length=50, primary_key=True)
     idioma = models.ForeignKey(Idioma)
 
+    def __unicode__(self):
+        return texto
+
 class Natureza(models.Model):
     tipo = models.CharField(max_length=200, primary_key=True)
+
+    def __unicode__(self):
+        return tipo
+
 
 class Usuario(models.Model):
     login = models.CharField(max_length=30, primary_key=True)
@@ -39,6 +58,9 @@ class Usuario(models.Model):
     senha = models.CharField(max_length=20)
     tipo = models.CharField(max_length=30)
     pais_sede = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return login
 
 class RedeUsuario(models.Model):
     login = models.ForeignKey(Usuario)
@@ -67,6 +89,9 @@ class Documento(models.Model):
     natureza = models.ForeignKey(Natureza)
     resposta = models.ManyToManyField('Documento', through='Responde', related_name='res')
     ligado = models.ManyToManyField('Documento', through='Liga', related_name='ligacao')
+
+    def __unicode__(self):
+        return titulo
 
 class Descricao(models.Model):
     idioma = models.ForeignKey(Idioma)
