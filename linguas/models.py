@@ -50,9 +50,10 @@ class Comentario(models.Model):
     idioma = models.ForeignKey(Idioma)
     data = models.DateTimeField()
     texto = models.CharField(max_length=1000)
+    resposta = models.ManyToManyField('Comentario', through='Debate', related_name='res')
 
 class Documento(models.Model):
-    arquivo = models.FileField()
+    arquivo = models.FileField(upload_to='/Users/miguelgaiowski/src/mc536/trabalho/')
     formato = models.CharField(max_length=5)
     titulo = models.CharField(max_length=200)
     data_criacao = models.DateTimeField()
@@ -64,6 +65,8 @@ class Documento(models.Model):
     maquina_submissao = models.IPAddressField()
     programa = models.ForeignKey(Programa)
     natureza = models.ForeignKey(Natureza)
+    resposta = models.ManyToManyField('Documento', through='Responde', related_name='res')
+    ligado = models.ManyToManyField('Documento', through='Liga', related_name='ligacao')
 
 class Descricao(models.Model):
     idioma = models.ForeignKey(Idioma)
@@ -78,15 +81,15 @@ class Favorito(models.Model):
     login = models.ForeignKey(Usuario)
 
 class Responde(models.Model):
-    sobre = models.ForeignKey(Documento)
-    resposta = models.ForeignKey(Documento)
+    sobre = models.ForeignKey(Documento, related_name='+')
+    resposta = models.ForeignKey(Documento, related_name='+')
 
 class Liga(models.Model):
     login = models.ForeignKey(Usuario)
-    did_a = models.ForeignKey(Documento)
-    did_liga = models.ForeignKey(Documento)
+    did_a = models.ForeignKey(Documento, related_name='+')
+    did_liga = models.ForeignKey(Documento, related_name='+')
 
 class Debate(models.Model):
-    comentario_1 = models.ForeignKey(Comentario)
-    comentario_2 = models.ForeignKey(Comentario)
+    comentario_1 = models.ForeignKey(Comentario, related_name='+')
+    comentario_2 = models.ForeignKey(Comentario, related_name='+')
 
