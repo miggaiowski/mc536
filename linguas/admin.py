@@ -1,12 +1,12 @@
-from linguas.models import Autor
+from linguas.models import *
 from django.contrib import admin
 
 admin.site.register(Autor)
-admin.site.register(Programa)
+# admin.site.register(Programa)
 admin.site.register(RedeTrabalho)
 admin.site.register(Programa)
 admin.site.register(Idioma)
-admin.site.register(Local)
+# admin.site.register(Local)
 admin.site.register(Keyword)
 admin.site.register(Natureza)
 admin.site.register(Usuario)
