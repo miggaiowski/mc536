@@ -7,7 +7,7 @@ ADMINS = (
     # ('Miguel Gaiowski', 'miggaiowski@gmail.com'),
 )
 
-PATH_PWD = "/Users/miguelgaiowski/src/mc536/mysite/"
+PATH_PWD = "/Users/miguelgaiowski/src/mc536/trabalho/"
 
 MANAGERS = ADMINS
 
