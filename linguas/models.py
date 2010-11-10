@@ -92,4 +92,3 @@ class Liga(models.Model):
 class Debate(models.Model):
     comentario_1 = models.ForeignKey(Comentario, related_name='+')
     comentario_2 = models.ForeignKey(Comentario, related_name='+')
-
