@@ -89,6 +89,7 @@ class Documento(models.Model):
     natureza = models.ForeignKey(Natureza)
     resposta = models.ManyToManyField('Documento', through='Responde', related_name='res')
     ligado = models.ManyToManyField('Documento', through='Liga', related_name='ligacao')
+    keywords = models.ManyToManyField('Keyword', through='DocumentoKeyword')
 
     def __unicode__(self):
         return titulo
