@@ -9,7 +9,15 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Example:
     # (r'^trabalho/', include('trabalho.foo.urls')),
-    (r'^keyword/$', ListView.as_view(model=Keyword, context_object_name='keyword_list', template_name='linguas/keywords.html')),
+    (r'^keyword/$', ListView.as_view(
+            model=Keyword, 
+            context_object_name='keyword_list', 
+            template_name='linguas/keyword_list.html')),
+    (r'^keyword/(?P<pk>\w)$', DetailView.as_view(
+            model=Keyword, 
+            template_name='linguas/keyword_detail.html')),
+       
+
     # (r'^keywords/$', linguas.views.keywords),
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
