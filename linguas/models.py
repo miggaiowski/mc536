@@ -74,6 +74,9 @@ class Comentario(models.Model):
     texto = models.CharField(max_length=1000)
     resposta = models.ManyToManyField('Comentario', through='Debate', related_name='res')
 
+    def __unicode__(self):
+        return self.texto
+
 class Documento(models.Model):
     arquivo = models.FileField(upload_to='/Users/miguelgaiowski/src/mc536/trabalho/')
     formato = models.CharField(max_length=5)
