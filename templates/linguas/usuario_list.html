@@ -1,3 +1,7 @@
+{% extends "index.html" %}
+
+{% block conteudo %}
+
 {% if usuario_list %}
     <ul>
     {% for usuario in usuario_list %}
@@ -7,3 +11,5 @@
 {% else %}
     <p>Nenhum usuário cadastrado.</p>
 {% endif %}
+
+{% endblock %}
