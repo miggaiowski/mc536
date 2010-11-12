@@ -1,3 +1,7 @@
+{% extends "index.html" %}
+
+{% block conteudo %}
+
 {% if keyword_list %}
     <ul>
     {% for keyword in keyword_list %}
@@ -7,3 +11,13 @@
 {% else %}
     <p>No keywords are available.</p>
 {% endif %}
+
+{% endblock %}
+
+{% block menu %}
+<li><a href="#">Home</a></li>
+<li><a href="#">Usuarios</a></li>
+<li class="current_page_item"><a href="#">Keywords</a></li>
+<li><a href="#">Programas</a></li>
+<li><a href="#">Contact</a></li>
+{% endblock %}
