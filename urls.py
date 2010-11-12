@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from django.views.generic import DetailView, ListView
-from linguas.models import Keyword
+from linguas.models import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -10,10 +10,20 @@ urlpatterns = patterns('',
     # Example:
     # (r'^trabalho/', include('trabalho.foo.urls')),
     (r'^keywords?/$', ListView.as_view(
-            model=Keyword, 
+            model=Keyword,
             context_object_name='keyword_list')),
     (r'^keywords?/(?P<pk>\w+)/$', DetailView.as_view(
             model=Keyword)),
+    (r'^usuarios?/$', ListView.as_view(
+            model=Usuario, 
+            context_object_name='usuario_list')),
+    (r'^usuarios?/(?P<pk>\w+)/$', DetailView.as_view(
+            model=Usuario)),
+    (r'^programas?/$', ListView.as_view(
+            model=Programas, 
+            context_object_name='programa_list')),
+    (r'^programas?/(?P<pk>\w+)/$', DetailView.as_view(
+            model=Programas)),
 
     # (r'^keywords/$', linguas.views.keywords),
     # Uncomment the admin/doc line below to enable admin documentation:
