@@ -7,8 +7,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+
     # Example:
     # (r'^trabalho/', include('trabalho.foo.urls')),
+    
     (r'^keywords?/$', ListView.as_view(
             model=Keyword,
             context_object_name='keyword_list')),
@@ -32,3 +34,4 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
 )
+
