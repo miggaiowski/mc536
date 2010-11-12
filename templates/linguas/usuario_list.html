@@ -1,0 +1,9 @@
+{% if usuario_list %}
+    <ul>
+    {% for usuario in usuario_list %}
+        <li><a href="/usuario/{{ usuario.login }}/">{{ usuario.nome }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhum usuário cadastrado.</p>
+{% endif %}
