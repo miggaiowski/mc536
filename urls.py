@@ -20,10 +20,10 @@ urlpatterns = patterns('',
     (r'^usuarios?/(?P<pk>\w+)/$', DetailView.as_view(
             model=Usuario)),
     (r'^programas?/$', ListView.as_view(
-            model=Programas, 
+            model=Programa, 
             context_object_name='programa_list')),
     (r'^programas?/(?P<pk>\w+)/$', DetailView.as_view(
-            model=Programas)),
+            model=Programa)),
 
     # (r'^keywords/$', linguas.views.keywords),
     # Uncomment the admin/doc line below to enable admin documentation:
