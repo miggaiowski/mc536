@@ -1,7 +1,7 @@
 {% if programa_list %}
     <ul>
     {% for programa in programa_list %}
-        <li><a href="/programa/{{ programa.nome }}/">{{ programa.nome }}</a></li>
+        <li><a href="/programa/{{ programa.id }}/">{{ programa.nome }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
