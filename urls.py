@@ -13,7 +13,7 @@ urlpatterns = patterns('',
             model=Keyword, 
             context_object_name='keyword_list', 
             template_name='linguas/keyword_list.html')),
-    (r'^keyword/(?P<pk>\w)$', DetailView.as_view(
+    (r'^keyword/(?P<pk>\w+)/$', DetailView.as_view(
             model=Keyword, 
             template_name='linguas/keyword_detail.html')),
        
