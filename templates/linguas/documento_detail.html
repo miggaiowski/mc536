@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block conteudo %}
+
+<h1>Título do documento: {{documento.titulo }}</h1>
+<h1>Tipo de documento:   {{documento.natureza }}</h1>
+<h1>Autor:		 {{documento.autor }}</h1>
+<h1>Programa:		 {{documento.programa }}</h1>
+<h1>Criado em:		 {{documento.data_criacao }}</h1>
+<h1>Submetido em:	 {{documento.data_submissao }}</h1>
+<h1>Por (Usuário):	 {{documento.submetido_por }}</h1>
+<h1>Idioma:		 {{documento.idioma }}</h1>
+<h1>No. vizualizações:	 {{documento.num_vizualizacoes }}</h1>
+
+{% block conteudo %}
+
+{% block menu %}
+<li><a href="/">Home</a></li>
+<li><a href="/usuarios">Usuarios</a></li>
+<li><a href="/keywords">Keywords</a></li>
+<li><a href="/programas">Programas</a></li>
+<li class="current_page_item"><a href="#">Documentos</a></li>
+<li><a href="#">Contact</a></li>
+{% endblock %}
