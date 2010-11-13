@@ -2,15 +2,19 @@
 
 {% block conteudo %}
 
-<h1>{{ keyword.texto }}</h1>
-<h2>{{ keyword.idioma.nome }}</h2>
+<h2>{{ keyword.texto }}</h2>
+<h1>{{ keyword.idioma.nome }}</h1>
+
+<h1><a href="/keywords/{{keyword.id}}/documentos">Documentos</a></h1>
+
+
 
 {% endblock %}
 
 {% block menu %}
 <li><a href="/">Home</a></li>
 <li><a href="/usuarios">Usuarios</a></li>
-<li class="current_page_item"><a href="#">Keywords</a></li>
+<li class="current_page_item"><a href="/keywords">Keywords</a></li>
 <li><a href="/programas">Programas</a></li>
 <li><a href="/documentos">Documentos</a></li>
 <li><a href="#">Contact</a></li>

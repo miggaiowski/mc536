@@ -2,8 +2,10 @@
 
 {% block conteudo %}
 
-<h1>{{ programa.nome }}</h1>
-<h2>{{ programa.organizacao.nome }}</h2>
+<h2> Programa: {{ programa.nome }}</h2>
+<h1> Organização: {{ programa.organizacao.nome }}</h1>
+
+<h1><a href="/programas/{{programa.id}}/documentos">Documentos</a></h1>
 
 {% endblock %}
 

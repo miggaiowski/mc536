@@ -11,3 +11,9 @@ def documentos_keywords(request, key):
     docs = keyword.documento_set.all()
     return render_to_response('linguas/documento_list.html', 
                               {'documento_list': docs})    
+
+def documentos_keywords(request, pk):
+    prog = Programa.objects.get(pk=pk)
+    docs = prog.documento_set.all()
+    return render_to_response('linguas/documento_list.html', 
+                              {'documento_list': docs})    
