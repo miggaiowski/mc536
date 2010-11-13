@@ -31,6 +31,7 @@ urlpatterns = patterns('',
             context_object_name='documento_list')),
     (r'^documentos?/(?P<pk>\w+)/$', DetailView.as_view(
             model=Documento)),
+    (r'^search/$', 'linguas.views.busca'), 
     (r'^$', 'linguas.views.ultimos_documentos'), 
     (r'^keywords?/(?P<key>\w+)/documentos?/$', 
      'linguas.views.documentos_keywords'),

@@ -78,7 +78,7 @@ class Comentario(models.Model):
         return self.texto
 
 class Documento(models.Model):
-    arquivo = models.FileField(upload_to='/Users/miguelgaiowski/src/mc536/trabalho/')
+    arquivo = models.FileField(upload_to='/Users/miguelgaiowski/src/mc536/trabalho/static')
     formato = models.CharField(max_length=5)
     titulo = models.CharField(max_length=200)
     data_criacao = models.DateTimeField()
