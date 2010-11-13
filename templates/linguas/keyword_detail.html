@@ -1,2 +1,16 @@
+{% extends "index.html" %}
+
+{% block conteudo %}
+
 <h1>{{ keyword.texto }}</h1>
 <h2>{{ keyword.idioma.nome }}</h2>
+
+{% block conteudo %}
+
+{% block menu %}
+<li><a href="/">Home</a></li>
+<li><a href="/usuarios">Usuarios</a></li>
+<li class="current_page_item"><a href="#">Keywords</a></li>
+<li><a href="/programas">Programas</a></li>
+<li><a href="#">Contact</a></li>
+{% endblock %}
