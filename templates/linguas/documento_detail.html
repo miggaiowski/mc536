@@ -2,17 +2,17 @@
 
 {% block conteudo %}
 
-<h1>Título do documento: {{documento.titulo }}</h1>
-<h1>Tipo de documento:   {{documento.natureza }}</h1>
-<h1>Autor:		 {{documento.autor }}</h1>
-<h1>Programa:		 {{documento.programa }}</h1>
-<h1>Criado em:		 {{documento.data_criacao }}</h1>
-<h1>Submetido em:	 {{documento.data_submissao }}</h1>
-<h1>Por (Usuário):	 {{documento.submetido_por }}</h1>
-<h1>Idioma:		 {{documento.idioma }}</h1>
-<h1>No. vizualizações:	 {{documento.num_vizualizacoes }}</h1>
+<h3>Título do documento: {{documento.titulo }}</h3>
+<h3>Tipo de documento:   {{documento.natureza }}</h3>
+<h3>Autor:		 {{documento.autor }}</h3>
+<h3>Programa:		 {{documento.programa }}</h3>
+<h3>Criado em:		 {{documento.data_criacao }}</h3>
+<h3>Submetido em:	 {{documento.data_submissao }}</h3>
+<h3>Por (Usuário):	 {{documento.submetido_por }}</h3>
+<h3>Idioma:		 {{documento.idioma }}</h3>
+<h3>No. vizualizações:	 {{documento.num_vizualizacoes }}</h3>
 
-{% block conteudo %}
+{% endblock %}
 
 {% block menu %}
 <li><a href="/">Home</a></li>
