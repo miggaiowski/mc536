@@ -12,6 +12,17 @@
 <h3>Idioma:		 {{documento.idioma }}</h3>
 <h3>No. vizualizações:	 {{documento.num_vizualizacoes }}</h3>
 
+
+{% if documento|comentario_set %}
+  <ul>
+  {% for comentario in documento|comentario_set %}
+    <li> {{ comentario.texto }} </li>
+  {% endfor %}
+  </ul>
+{% endif%}
+
+
+
 {% endblock %}
 
 {% block menu %}
