@@ -12,7 +12,7 @@ def documentos_keywords(request, key):
     return render_to_response('linguas/documento_list.html', 
                               {'documento_list': docs})    
 
-def documentos_keywords(request, pk):
+def documentos_programas(request, pk):
     prog = Programa.objects.get(pk=pk)
     docs = prog.documento_set.all()
     return render_to_response('linguas/documento_list.html', 
