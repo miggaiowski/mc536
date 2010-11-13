@@ -2,10 +2,10 @@
 
 {% block conteudo %}
 
-{% if keyword_list %}
+{% if documento_list %}
     <ul>
     {% for documento in documento_list %}
-        <li><a href="/documento/{{ documento.titulo }}/">{{ documento.titulo }}</a></li>
+        <li><a href="/documento/{{ documento.id }}/">{{ documento.titulo }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
