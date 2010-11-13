@@ -31,6 +31,13 @@
     <li> <a href="/documento/{{ liga.id }}">{{ liga.titulo }}</a></li>
   {% endfor %}
   </ul>
+{% endif %}
+{% if documento.ligacao.all %}
+  <ul>
+  {% for liga in documento.ligacao.all %}
+    <li> <a href="/documento/{{ liga.id }}">{{ liga.titulo }}</a></li>
+  {% endfor %}
+  </ul>
 {% endif%}
 
 
