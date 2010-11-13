@@ -22,6 +22,17 @@
   </ul>
 {% endif%}
 
+<br>
+<h3> Documentos Ligados: </h3:
+
+{% if documento.ligado.all %}
+  <ul>
+  {% for liga in documento.ligado.all %}
+    <li> <a href="/documento/{{ liga.id }}">{{ liga.titulo }}</a></li>
+  {% endfor %}
+  </ul>
+{% endif%}
+
 
 
 {% endblock %}
