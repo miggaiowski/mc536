@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     (r'^documentos?/(?P<pk>\w+)/$', DetailView.as_view(
             model=Documento)),
     (r'^$', 'linguas.views.ultimos_documentos'),
+    (r'^keywords?/(?P<key>\w+)/documentos?/$', 'linguas.views.documentos_keywords'),
 
     # (r'^keywords/$', linguas.views.keywords),
     # Uncomment the admin/doc line below to enable admin documentation:
