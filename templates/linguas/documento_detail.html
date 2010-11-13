@@ -11,10 +11,11 @@
 <h3>Por (Usuário):	 {{documento.submetido_por }}</h3>
 <h3>Idioma:		 {{documento.idioma }}</h3>
 <h3>No. vizualizações:	 {{documento.num_vizualizacoes }}</h3>
+<h3>Arquivo:             <a href="file:/{{documento.arquivo.name}}">Download</a></h3>
 <br>
-<h3> Comentario: </h3:
 
 {% if documento.comentario_set.all %}
+<h3> Comentarios: </h3:
   <ul>
   {% for comentario in documento.comentario_set.all %}
     <li> {{ comentario.texto }} -- {{ comentario.usuario.nome }} </li>
