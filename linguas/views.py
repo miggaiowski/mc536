@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from linguas.models import *
+import datetime
 
 def ultimos_documentos(request):
     ult_doc = Documento.objects.all().order_by('-data_submissao')[:5]
@@ -43,6 +44,20 @@ def comenta(request, pk):
     if request.method == 'POST': 
         form = ComentarioForm(request.POST)
         if form.is_valid():
-            pass
+            try:
+                usuario = Usuario.objects.get(pk=form.cleaned_data['usuario'])
+                documento = Documento.objects.get(pk=pk)
+                idioma = Idioma.objects.all()[0]
+                data = datetime.datetime.now()
+                texto = form.cleaned_data['texto']
+                c = Comentario(usuario=usuario, 
+                               documento=documento, 
+                               idioma=idioma, 
+                               data=data, 
+                               texto=texto)
+                c.save()
+                return HttpResponseRedirect('/documento/'+str(pk))
+            except:
+                pass
     return HttpResponseRedirect('/documento')
 
