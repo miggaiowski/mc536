@@ -150,6 +150,48 @@ a:hover {
 	color: #FFFFFF;
 }
 
+/* Comment */
+
+#comment {
+	/* float: right; */
+	/* width: 280px; */
+	height: 110px;
+	padding: 20px 0px 0px 0px;
+	background: #E9E3CB;
+	border-bottom: 4px solid #FFFFFF;
+}
+#comment form {
+	height: 41px;
+	margin: 0;
+	padding: 10px 0 0 20px;
+}
+
+#comment fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+#comment-text {
+	width: 170px;
+	padding: 6px 5px 2px 5px;
+	border: none;
+	background: #FFFFFF;
+	/* text-transform: lowercase; */
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #464032;
+}
+
+#comment-submit {
+	width: 50px;
+	height: 23px;
+	border: 1px solid #AC9A79;
+	background: #AC9A79;
+	font-weight: bold;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+
 /* Menu */
 
 #menu {

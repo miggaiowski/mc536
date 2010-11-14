@@ -43,6 +43,19 @@
   </ul>
 {% endif%}
 
+<br>
+
+<h3>Comente:</h3>
+<div id="comment">
+  <form action="/documento/{{documento.id}}/comenta/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- {{ form.usuario.errors }} -->
+    <!-- <label for="usuario">Usuário (login):</label> -->
+    <!-- {{ form.usuario }} -->
+    <input type="submit" value="Submit" />
+  </form>
+</div>
 
 
 {% endblock %}

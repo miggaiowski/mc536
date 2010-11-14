@@ -29,8 +29,10 @@ urlpatterns = patterns('',
     (r'^documentos?/$', ListView.as_view(
             model=Documento, 
             context_object_name='documento_list')),
-    (r'^documentos?/(?P<pk>\w+)/$', DetailView.as_view(
-            model=Documento)),
+    # (r'^documentos?/(?P<pk>\w+)/$', DetailView.as_view(
+    #         model=Documento)),
+    (r'^documentos?/(?P<pk>\w+)/$', 'linguas.views.documento_detail'),
+    (r'^documentos?/(?P<pk>\w+)/comenta/$', 'linguas.views.comenta'),
     (r'^search/$', 'linguas.views.busca'), 
     (r'^$', 'linguas.views.ultimos_documentos'), 
     (r'^keywords?/(?P<key>\w+)/documentos?/$', 

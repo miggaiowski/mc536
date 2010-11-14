@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from linguas.models import *
@@ -20,6 +21,14 @@ def documentos_programas(request, pk):
     return render_to_response('linguas/documento_list.html', 
                               {'documento_list': docs})    
 
+def documento_detail(request, pk):
+    doc = Documento.objects.get(pk=pk)
+    form = ComentarioForm()
+    return render_to_response('linguas/documento_detail.html', 
+                              {'documento': doc,
+                               'form': form, },
+                              context_instance=RequestContext(request))    
+
 def busca(request):
     res = {}
     if request.POST['s']:
@@ -29,4 +38,11 @@ def busca(request):
     return render_to_response('linguas/resultado_busca.html', 
                               {'results': res}, 
                               context_instance=RequestContext(request))    
-        
+
+def comenta(request, pk):
+    if request.method == 'POST': 
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            pass
+    return HttpResponseRedirect('/documento')
+
