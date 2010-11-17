@@ -15,23 +15,12 @@
 </div>
 <br>
 
-{% if documento.comentario_set.all %}
-<h3> Comentarios: </h3:
-  <ul>
-  {% for comentario in documento.comentario_set.all %}
-    <li> {{ comentario.texto }} -- {{ comentario.usuario.nome }} </li>
-  {% endfor %}
-  </ul>
-{% endif%}
-
-<br>
-
 {% if documento.ligado.all %}
 <h3> Documentos Relacionados: </h3:>
   <ul>
   {% for liga in documento.ligado.all %}
     <li> <a href="/documento/{{ liga.id }}">{{ liga.titulo }}</a></li>
-  {% endfor %}
+ {% endfor %}
   </ul>
 {% endif %}
 {% if documento.ligacao.all %}
@@ -44,6 +33,18 @@
 {% endif%}
 
 <br>
+
+{% if documento.comentario_set.all %}
+<h3> Comentarios: </h3:
+  <ul>
+  {% for comentario in documento.comentario_set.all %}
+    <li> {{ comentario.texto }} -- {{ comentario.usuario.nome }} </li>
+ {% endfor %}
+  </ul>
+{% endif%}
+
+<br>
+
 
 <h3>Comente:</h3>
 <div id="comment">
@@ -66,5 +67,6 @@
 <li><a href="/keywords">Keywords</a></li>
 <li><a href="/programas">Programas</a></li>
 <li class="current_page_item"><a href="/documentos">Documentos</a></li>
+<li><a href="/idiomas">Idiomas</a></li>
 <li><a href="#">Contact</a></li>
 {% endblock %}

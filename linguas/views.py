@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from linguas.models import *
@@ -22,8 +22,19 @@ def documentos_programas(request, pk):
     return render_to_response('linguas/documento_list.html', 
                               {'documento_list': docs})    
 
+def documentos_idiomas(request, idioma):
+    idioma = Idioma.objects.get(pk=idioma)
+    docs = idioma.documento_set.all()
+    return render_to_response('linguas/documento_list.html', 
+                              {'documento_list': docs})    
+
 def documento_detail(request, pk):
-    doc = Documento.objects.get(pk=pk)
+    try:
+        doc = Documento.objects.get(pk=pk)
+    except Documento.DoesNotExist:
+        raise Http404
+    doc.num_vizualizacoes += 1
+    doc.save()
     form = ComentarioForm()
     return render_to_response('linguas/documento_detail.html', 
                               {'documento': doc,
@@ -59,5 +70,5 @@ def comenta(request, pk):
                 return HttpResponseRedirect('/documento/'+str(pk))
             except:
                 pass
-    return HttpResponseRedirect('/documento')
+    return HttpResponseRedirect('/documento/'+str(pk))
 

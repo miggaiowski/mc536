@@ -17,8 +17,11 @@ urlpatterns = patterns('',
     (r'^keywords?/(?P<pk>\w+)/$', DetailView.as_view(
             model=Keyword)),
     (r'^usuarios?/$', ListView.as_view(
-            model=Usuario, 
-            context_object_name='usuario_list')),
+                           model=Usuario, 
+                           context_object_name='usuario_list')),
+    (r'^idiomas?/$', ListView.as_view(
+                           model=Idioma,
+                           context_object_name='idioma_list')),
     (r'^usuarios?/(?P<pk>\w+)/$', DetailView.as_view(
             model=Usuario)),
     (r'^programas?/$', ListView.as_view(
@@ -37,6 +40,8 @@ urlpatterns = patterns('',
     (r'^$', 'linguas.views.ultimos_documentos'), 
     (r'^keywords?/(?P<key>\w+)/documentos?/$', 
      'linguas.views.documentos_keywords'),
+    (r'^idiomas?/(?P<idioma>\w+)/documentos?/$', 
+     'linguas.views.documentos_idiomas'),
     (r'^programas?/(?P<pk>\w+)/documentos?/$', 
      'linguas.views.documentos_programas'),
 
