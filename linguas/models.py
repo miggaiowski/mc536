@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 class Programa(models.Model):
     nome = models.CharField(max_length=200)
@@ -66,19 +67,9 @@ class RedeUsuario(models.Model):
     login = models.ForeignKey(Usuario)
     nome = models.ForeignKey('RedeTrabalho')
 
-class Comentario(models.Model):
-    usuario = models.ForeignKey(Usuario)
-    documento = models.ForeignKey('Documento')
-    idioma = models.ForeignKey(Idioma)
-    data = models.DateTimeField()
-    texto = models.CharField(max_length=1000)
-    resposta = models.ManyToManyField('Comentario', through='Debate', related_name='res')
-
-    def __unicode__(self):
-        return self.texto
 
 class Documento(models.Model):
-    arquivo = models.FileField(upload_to='/Users/miguelgaiowski/src/mc536/trabalho/')
+    arquivo = models.FileField(upload_to='/Users/miguelgaiowski/src/mc536/trabalho/static')
     formato = models.CharField(max_length=5)
     titulo = models.CharField(max_length=200)
     data_criacao = models.DateTimeField()
@@ -119,5 +110,21 @@ class Liga(models.Model):
     did_liga = models.ForeignKey(Documento, related_name='+')
 
 class Debate(models.Model):
-    comentario_1 = models.ForeignKey(Comentario, related_name='+')
-    comentario_2 = models.ForeignKey(Comentario, related_name='+')
+    comentario_1 = models.ForeignKey('Comentario', related_name='+')
+    comentario_2 = models.ForeignKey('Comentario', related_name='+')
+
+class Comentario(models.Model):
+    usuario = models.ForeignKey(Usuario)
+    documento = models.ForeignKey('Documento')
+    idioma = models.ForeignKey(Idioma)
+    data = models.DateTimeField()
+    texto = models.CharField(max_length=1000)
+    resposta = models.ManyToManyField('Comentario', through='Debate', related_name='res')
+
+    def __unicode__(self):
+        return self.texto
+
+class ComentarioForm(forms.Form):
+    usuario = forms.CharField(max_length=30)
+    texto = forms.CharField(max_length=1000)
+    

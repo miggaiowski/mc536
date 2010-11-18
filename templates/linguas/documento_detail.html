@@ -1,39 +1,30 @@
 {% extends "index.html" %}
 
 {% block conteudo %}
-
-<h3>Título do documento: {{documento.titulo }}</h3>
-<h3>Tipo de documento:   {{documento.natureza }}</h3>
-<h3>Autor:		 {{documento.autor }}</h3>
-<h3>Programa:		 {{documento.programa }}</h3>
-<h3>Criado em:		 {{documento.data_criacao }}</h3>
-<h3>Submetido em:	 {{documento.data_submissao }}</h3>
-<h3>Por (Usuário):	 {{documento.submetido_por }}</h3>
-<h3>Idioma:		 {{documento.idioma }}</h3>
-<h3>No. vizualizações:	 {{documento.num_vizualizacoes }}</h3>
-<h3>Arquivo:             <a href="file:{{documento.arquivo.name}}">Download</a></h3>
+<div class="post">
+  <p class="meta">Título do documento: <span class="posted">{{documento.titulo }}</span></p>
+  <p class="meta">Tipo de documento: <span class="posted">  {{documento.natureza }}</span></p>
+  <p class="meta">Autor:	<span class="posted">	 {{documento.autor }}</span></p>
+  <p class="meta">Programa:	<span class="posted">	 {{documento.programa }}</span></p>
+  <p class="meta">Criado em:	<span class="posted">	 {{documento.data_criacao }}</span></p>
+  <p class="meta">Submetido em:	<span class="posted"> {{documento.data_submissao }}</span></p>
+  <p class="meta">Por (Usuário):	<span class="posted"> {{documento.submetido_por }}</span></p>
+  <p class="meta">Idioma:	<span class="posted">	 {{documento.idioma }}</span></p>
+  <p class="meta">No. vizualizações:	<span class="posted"> {{documento.num_vizualizacoes }}</span></p>
+  <p class="meta">Arquivo: <span class="posted">            <a href="file:{{ documento.arquivo.name }}">Download</a></span></p>
+</div>
 <br>
-
-{% if documento.comentario_set.all %}
-<h3> Comentarios: </h3:
-  <ul>
-  {% for comentario in documento.comentario_set.all %}
-    <li> {{ comentario.texto }} -- {{ comentario.usuario.nome }} </li>
-  {% endfor %}
-  </ul>
-{% endif%}
-
-<br>
-<h3> Documentos Ligados: </h3:
 
 {% if documento.ligado.all %}
+<h3> Documentos Relacionados: </h3:>
   <ul>
   {% for liga in documento.ligado.all %}
     <li> <a href="/documento/{{ liga.id }}">{{ liga.titulo }}</a></li>
-  {% endfor %}
+ {% endfor %}
   </ul>
 {% endif %}
 {% if documento.ligacao.all %}
+<h3> Documentos Relacionados: </h3:>
   <ul>
   {% for liga in documento.ligacao.all %}
     <li> <a href="/documento/{{ liga.id }}">{{ liga.titulo }}</a></li>
@@ -41,6 +32,31 @@
   </ul>
 {% endif%}
 
+<br>
+
+{% if documento.comentario_set.all %}
+<h3> Comentarios: </h3:
+  <ul>
+  {% for comentario in documento.comentario_set.all %}
+    <li> {{ comentario.texto }} -- {{ comentario.usuario.nome }} </li>
+ {% endfor %}
+  </ul>
+{% endif%}
+
+<br>
+
+
+<h3>Comente:</h3>
+<div id="comment">
+  <form action="/documento/{{documento.id}}/comenta/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- {{ form.usuario.errors }} -->
+    <!-- <label for="usuario">Usuário (login):</label> -->
+    <!-- {{ form.usuario }} -->
+    <input type="submit" value="Submit" />
+  </form>
+</div>
 
 
 {% endblock %}
@@ -50,6 +66,7 @@
 <li><a href="/usuarios">Usuarios</a></li>
 <li><a href="/keywords">Keywords</a></li>
 <li><a href="/programas">Programas</a></li>
-<li class="current_page_item"><a href="#">Documentos</a></li>
+<li class="current_page_item"><a href="/documentos">Documentos</a></li>
+<li><a href="/idiomas">Idiomas</a></li>
 <li><a href="#">Contact</a></li>
 {% endblock %}

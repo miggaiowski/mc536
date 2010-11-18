@@ -2,14 +2,14 @@
 
 {% block conteudo %}
 
-{% if keyword_list %}
+{% if idioma_list %}
     <ul>
-    {% for keyword in keyword_list %}
-        <li><a href="/keyword/{{ keyword.texto }}/documentos/">{{ keyword.texto }}</a></li>
+    {% for idioma in idioma_list %}
+        <li><a href="/idioma/{{ idioma.id }}/documentos">{{ idioma.nome }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No keywords are available.</p>
+    <p>Lista de idiomas vazia.</p>
 {% endif %}
 
 {% endblock %}
@@ -17,9 +17,9 @@
 {% block menu %}
 <li><a href="/">Home</a></li>
 <li><a href="/usuarios">Usuarios</a></li>
-<li class="current_page_item"><a href="#">Keywords</a></li>
+<li><a href="/keywords">Keywords</a></li>
 <li><a href="/programas">Programas</a></li>
 <li><a href="/documentos">Documentos</a></li>
-<li><a href="/idiomas">Idiomas</a></li>
+<li class="current_page_item"><a href="/idiomas">Idiomas</a></li>
 <li><a href="#">Contact</a></li>
 {% endblock %}
