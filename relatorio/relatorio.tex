@@ -1,0 +1,241 @@
+\documentclass[12pt,a4paper]{article}
+ % document definitions
+\input{settings}
+\begin{document}
+% include cover
+
+\input{capa}
+\tableofcontents
+\listoffigures
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Este relatório descreve a etapa final do trabalho prático de MC536: a implementação 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implementação}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Utilizamos o framework Django \cite{django}, em Python, para fazer toda a interface do usuário
+com o banco de dados. Trata-se um sistema que facilita a implementação de aplicativos web que
+interagem com bancos da dados.
+
+Para utilizar a ferramenta, precisamos descrever os esquemas de relação para que fosse gerado
+o código SQL e executado no SGBD escolhido.
+
+Com a modelagem dos esquemas de relação da fase 2, ficou mais fácil modelar as classes que o Django
+precisa. Escolhemos utilizar o SGDB SQLite3, que mostrou-se mais prático já que é acompanha a instalação
+do Python e todo o banco fica em arquivo, facilitando o desenvolvimento de um projeto pequeno como este.
+
+Abaixo segue o código SQL de criação das tabelas.
+
+\begin{verbatim}
+BEGIN;
+CREATE TABLE "linguas_programa" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "nome" varchar(200) NOT NULL,
+    "organizacao_id" varchar(30) NOT NULL
+)
+;
+CREATE TABLE "linguas_autor" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "nome" varchar(200) NOT NULL,
+    "nacionalidade" varchar(50) NOT NULL,
+    "data_nasc" datetime NOT NULL
+)
+;
+CREATE TABLE "linguas_redetrabalho" (
+    "nome" varchar(200) NOT NULL PRIMARY KEY
+)
+;
+CREATE TABLE "linguas_programa_do_autor" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "autor_id" integer NOT NULL REFERENCES "linguas_autor" ("id"),
+    "programa_id" integer NOT NULL REFERENCES "linguas_programa" ("id")
+)
+;
+CREATE TABLE "linguas_idioma" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "nome" varchar(200) NOT NULL,
+    "pag_wiki" varchar(200) NOT NULL
+)
+;
+CREATE TABLE "linguas_local_do_idioma" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "idioma_id" integer NOT NULL REFERENCES "linguas_idioma" ("id"),
+    "pais" varchar(200) NOT NULL,
+    "regiao" varchar(200) NOT NULL
+)
+;
+CREATE TABLE "linguas_keyword" (
+    "texto" varchar(50) NOT NULL PRIMARY KEY,
+    "idioma_id" integer NOT NULL REFERENCES "linguas_idioma" ("id")
+)
+;
+CREATE TABLE "linguas_natureza" (
+    "tipo" varchar(200) NOT NULL PRIMARY KEY
+)
+;
+CREATE TABLE "linguas_usuario" (
+    "login" varchar(30) NOT NULL PRIMARY KEY,
+    "nome" varchar(200) NOT NULL,
+    "email" varchar(75) NOT NULL,
+    "senha" varchar(20) NOT NULL,
+    "tipo" varchar(30) NOT NULL,
+    "pais_sede" varchar(200) NOT NULL
+)
+;
+CREATE TABLE "linguas_redeusuario" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "login_id" varchar(30) NOT NULL REFERENCES "linguas_usuario" ("login"),
+    "nome_id" varchar(200) NOT NULL REFERENCES "linguas_redetrabalho" ("nome")
+)
+;
+CREATE TABLE "linguas_documento" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "arquivo" varchar(100) NOT NULL,
+    "formato" varchar(5) NOT NULL,
+    "titulo" varchar(200) NOT NULL,
+    "data_criacao" datetime NOT NULL,
+    "data_submissao" datetime NOT NULL,
+    "num_vizualizacoes" integer NOT NULL,
+    "autor_id" integer NOT NULL REFERENCES "linguas_autor" ("id"),
+    "idioma_id" integer NOT NULL REFERENCES "linguas_idioma" ("id"),
+    "submetido_por_id" varchar(30) NOT NULL REFERENCES "linguas_usuario" ("login"),
+    "maquina_submissao" char(15) NOT NULL,
+    "programa_id" integer NOT NULL REFERENCES "linguas_programa" ("id"),
+    "natureza_id" varchar(200) NOT NULL REFERENCES "linguas_natureza" ("tipo")
+)
+;
+CREATE TABLE "linguas_descricao" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "idioma_id" integer NOT NULL REFERENCES "linguas_idioma" ("id"),
+    "texto" varchar(1000) NOT NULL
+)
+;
+CREATE TABLE "linguas_documentokeyword" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "documento_id" integer NOT NULL REFERENCES "linguas_documento" ("id"),
+    "texto_id" varchar(50) NOT NULL REFERENCES "linguas_keyword" ("texto")
+)
+;
+CREATE TABLE "linguas_favorito" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "documento_id" integer NOT NULL REFERENCES "linguas_documento" ("id"),
+    "login_id" varchar(30) NOT NULL REFERENCES "linguas_usuario" ("login")
+)
+;
+CREATE TABLE "linguas_responde" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "sobre_id" integer NOT NULL REFERENCES "linguas_documento" ("id"),
+    "resposta_id" integer NOT NULL REFERENCES "linguas_documento" ("id")
+)
+;
+CREATE TABLE "linguas_liga" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "login_id" varchar(30) NOT NULL REFERENCES "linguas_usuario" ("login"),
+    "did_a_id" integer NOT NULL REFERENCES "linguas_documento" ("id"),
+    "did_liga_id" integer NOT NULL REFERENCES "linguas_documento" ("id")
+)
+;
+CREATE TABLE "linguas_debate" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "comentario_1_id" integer NOT NULL,
+    "comentario_2_id" integer NOT NULL
+)
+;
+CREATE TABLE "linguas_comentario" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "usuario_id" varchar(30) NOT NULL REFERENCES "linguas_usuario" ("login"),
+    "documento_id" integer NOT NULL REFERENCES "linguas_documento" ("id"),
+    "idioma_id" integer NOT NULL REFERENCES "linguas_idioma" ("id"),
+    "data" datetime NOT NULL,
+    "texto" varchar(1000) NOT NULL
+)
+;
+COMMIT;
+\end{verbatim}
+
+Este código foi gerado pelo framework através da descrição em Python dada.
+
+Obviamente que citamos aqui apenas a parte referente ao banco de dados, já que este é o intuito da disciplina. 
+Deixamos de mostrar aqui (mas está sendo entregue) o código de toda a interface e das consultas.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Casos de Uso}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Dado o curto período de tempo que tivemos para fazer a implementação, não foi possível ter todas as funcionalidades
+desejadas no sistema. Sendo assim, resolvemos implementar algumas que julgamos fundamentais para demonstrar os conhecimentos
+da disciplina.
+
+Temos uma interface de administração que permite inserir e editar ``objetos'' no banco de dados. Por exemplo, pode-se
+criar novos usuários, inserir novos documentos, remover comentários inadequados, entre várias outras coisas.
+
+A página principal já mostra uma lista com os cinco últimos documentos adicionados no banco, como pode ser visto na figura \ref{fig:home}.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1.0\textwidth]{home.png}
+    \caption{Página Inicial}
+    \label{fig:home}
+\end{figure}
+
+Na interface de usuário, fizemos questão de mostrar os metadados de um documento. Pode-se listar todos documentos
+cadastrados no banco \ref{fig:listadocs}, e clicando sobre um deles ver seus detalhes \ref{fig:detalhedocs}.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1.0\textwidth]{listadocs.png}
+    \caption{Lista com todos documentos cadastrados no banco}
+    \label{fig:listadocs}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1.0\textwidth]{detalhedocs.png}
+    \caption{Detalhes de um documento}
+    \label{fig:detalhedocs}
+\end{figure}
+
+Claro que um usuário não quer somente ter uma lista com os documentos cadastrados, ele quer na verdade fazer 
+consultas e ter resultados mais específicos. Para tanto implementamos um sistema de buscas. O usuário tem um
+campo onde digita uma palavra, ou mais de uma ou até mesmo só parte dela. O sistema busca o termo nos títulos
+de documentos, nos nomes de usuários cadastrados e nos nomes de programas patrocinadores. Os resultados são 
+categorizados e exibidos para o usuário. Clicando sobre um dos resultados ele é encaminhado para a página de 
+detalhes. Pode-se ver um exemplo de uso na figura \ref{fig:busca}.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1.0\textwidth]{busca.png}
+    \caption{O resultado de uma busca}
+    \label{fig:busca}
+\end{figure}
+
+Na página de detalhes de um documento o usuário pode ver os comentários já feitos sobre aquele documento
+e deixar o seu comentário também. Ver figura \ref{fig:comenta}.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1.0\textwidth]{comenta.png}
+    \caption{Usuário deixando um comentário}
+    \label{fig:comenta}
+\end{figure}
+
+Documentos também podem ser procurados por Idioma, por Programa patrocinador ou por Keyword.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bibliografia}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{elmasri}
+\nocite{indiano}
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
+
+
